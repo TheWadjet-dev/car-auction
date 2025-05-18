@@ -15,26 +15,24 @@ export const ViewPermissions = () => {
   const { isInstalled } = useMiniKit();
 
   useEffect(() => {
-    const fetchPermissions = async () => {
-      if (isInstalled) {
-        try {
-          // You can also fetch this by grabbing from user
-          MiniKit.user.permissions;
-          MiniKit.install();
-          const permissions = await MiniKit.commandsAsync.getPermissions();
-          if (permissions?.finalPayload.status === 'success') {
-            setPermissions(permissions?.finalPayload.permissions || {});
-            console.log('permissions', permissions);
-          }
-        } catch (error) {
-          console.error('Failed to fetch permissions:', error);
+  const fetchPermissions = async () => {
+    if (isInstalled) {
+      try {
+        // Elimina MiniKit.install();
+        const permissions = await MiniKit.commandsAsync.getPermissions();
+        if (permissions?.finalPayload.status === 'success') {
+          setPermissions(permissions?.finalPayload.permissions || {});
+          console.log('permissions', permissions);
         }
-      } else {
-        console.log('MiniKit is not installed');
+      } catch (error) {
+        console.error('Failed to fetch permissions:', error);
       }
-    };
-    fetchPermissions();
-  }, [isInstalled]);
+    } else {
+      console.log('MiniKit is not installed');
+    }
+  };
+  fetchPermissions();
+}, [isInstalled]);
 
   return (
     <div className="grid w-full gap-4">
