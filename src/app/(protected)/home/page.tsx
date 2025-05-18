@@ -19,6 +19,7 @@ export default async function Home() {
             <div className="flex items-center gap-2">
               <p className="text-sm font-semibold capitalize">
                 {session?.user.username}
+                {session?.user.walletAddress}
               </p>
               <Marble src={session?.user.profilePictureUrl} className="w-12" />
             </div>
