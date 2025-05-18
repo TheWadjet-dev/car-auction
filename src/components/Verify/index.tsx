@@ -1,7 +1,7 @@
 'use client';
 import { Button, LiveFeedback } from '@worldcoin/mini-apps-ui-kit-react';
 import { MiniKit, VerificationLevel } from '@worldcoin/minikit-js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * This component is an example of how to use World ID in Mini Apps
@@ -17,6 +17,18 @@ export const Verify = () => {
   const [whichVerification, setWhichVerification] = useState<VerificationLevel>(
     VerificationLevel.Device,
   );
+
+  useEffect(() => {
+    const savedState = localStorage.getItem('verifyState');
+    const savedVerification = localStorage.getItem('whichVerification');
+    if (savedState) setButtonState(savedState as any);
+    if (savedVerification) setWhichVerification(savedVerification as VerificationLevel);
+  }, []);
+
+  useEffect(() => {
+    if (buttonState) localStorage.setItem('verifyState', buttonState);
+    if (whichVerification) localStorage.setItem('whichVerification', whichVerification);
+  }, [buttonState, whichVerification]);
 
   const onClickVerify = async (verificationLevel: VerificationLevel) => {
     setButtonState('pending');
