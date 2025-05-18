@@ -19,7 +19,8 @@ export const ViewPermissions = () => {
       if (isInstalled) {
         try {
           // You can also fetch this by grabbing from user
-          MiniKit.user.permissions
+          MiniKit.user.permissions;
+          MiniKit.install();
           const permissions = await MiniKit.commandsAsync.getPermissions();
           if (permissions?.finalPayload.status === 'success') {
             setPermissions(permissions?.finalPayload.permissions || {});
