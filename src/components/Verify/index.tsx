@@ -31,7 +31,7 @@ export const Verify = () => {
       method: 'POST',
       body: JSON.stringify({
         payload: result.finalPayload,
-        action: 'test-action',
+        action: 'voting-action',
       }),
     });
 
